@@ -8,7 +8,7 @@ module.exports = {
     description: `My gatsby template based upon gatsby-starter-blog.`,
     siteUrl: `http://localhost:8000/`,
     social: {
-      twitter: `hinomaru-c`,
+      twitter: `hinomaru_c`,
     },
   },
   plugins: [
@@ -46,6 +46,16 @@ module.exports = {
           `gatsby-remark-prismjs`,
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
+//          {
+//            resolve: "gatsby-remark-custom-blocks",
+//            options: {
+//              blocks: {
+//                info: {
+//                  classes: "info",
+//                },
+//              },
+//            },
+//          },
         ],
       },
     },
@@ -112,8 +122,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Gatsby Starter Blog`,
-        short_name: `GatsbyJS`,
+        name: `My Gatsby Template | Template`,
+        short_name: `My Gatsby Template`,
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: `#663399`,

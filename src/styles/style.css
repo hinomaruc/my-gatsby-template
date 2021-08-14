@@ -303,7 +303,7 @@ a:focus {
 }
 
 .blog-post header h1 {
-  margin: var(--spacing-0) var(--spacing-0) var(--spacing-4) var(--spacing-0);
+  margin: var(--spacing-10) var(--spacing-0) var(--spacing-4) var(--spacing-0);
 }
 
 .blog-post header p {
@@ -330,4 +330,91 @@ a:focus {
   ol {
     list-style-position: inside;
   }
+}
+
+/* navbar */
+.navbar {
+	 position: absolute;
+	 padding: 0;
+	 margin: 0;
+	 margin-bottom: 10px;
+	 background: white;
+	 height: 40px;
+	 width: 100%;
+	 top: 0;
+	 left: 0;
+	 z-index: 1000;
+	 box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+ .navbar__ul {
+	 float: right;
+	 margin-right: 20px;
+}
+ .navbar__li {
+	 display: inline-block;
+	 line-height: 15px;
+	 margin: 0 5px;
+}
+ .navbar__li a {
+	 color: black;
+	 padding: 7px 13px;
+	 padding-bottom: 1px;
+	 transition: all 0.5s ease;
+}
+ .navbar__li a:hover {
+	 color: red;
+	 transition: 0.5s;
+}
+
+/* カスタムブロック */
+.custom-block {
+  position: relative;
+}
+.info {
+  border : 1px solid rgb(93, 30, 10);
+  border-radius: 5px;
+  margin: 0 1rem;
+  margin-bottom: 2rem;
+}
+.info > .custom-block-heading {
+  position: absolute;
+  display: inline-block;
+  top: 0px;
+  left: 0px;
+  padding: 0 .5rem;
+  border-radius: 5px 0 5px 0;
+  border: 1px solid rgb(93, 30, 10);
+  background: rgb(93, 30, 10);
+  border-top: 0;
+  border-left: 0;
+  font-weight: bold;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  font-size: 1rem;
+  color: #fff5ee;
+}
+.info > .custom-block-body {
+  margin: 0;
+  padding: 0px;
+  padding-top: 1rem;
+  padding-left: 3rem;
+  min-height: 6rem;
+}
+.info > .custom-block-heading::before {
+  position: absolute;
+  content: 'i';
+  font-size: 2.5rem;
+  line-height: 2.9rem;
+  vertical-align: middle;
+  font-weight: bold;
+  text-align: center;
+  display: inline-block;
+  top: 1.9rem;
+  left: 0.5rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 1.5rem;
+  color: #fff5ee;
+  background: #CCF;
+  border: thin solid #CCF;
 }

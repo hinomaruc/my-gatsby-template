@@ -229,3 +229,12 @@ This paragraph has some `code` in it.
 ![Alt Text](https://placehold.it/200x50 "Image Title")
 
     ![Alt Text](https://placehold.it/200x50 "Image Title")
+
+[[info]]
+| ここに情報文を書く
+
+[[warn]]
+| ここに警告文を書く
+
+[[question]]
+| ここに質問文を書く
