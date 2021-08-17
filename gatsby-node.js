@@ -1,5 +1,6 @@
 const path = require(`path`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
+const { paginate } = require(`gatsby-awesome-pagination`)
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
@@ -56,6 +57,14 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       })
     })
   }
+      // Create your paginated pages
+      paginate({
+          createPage,
+          items: posts,
+          itemsPerPage: 10,
+          pathPrefix: ({ pageNumber }) => (pageNumber === 0 ? "/" : "/page"),
+          component: path.resolve('src/templates/index.js')
+      })
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
@@ -107,7 +116,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       description: String
       date: Date @dateformat
     }
-    
+
     type Fields {
       slug: String
     }

@@ -4,8 +4,9 @@ import { Link, graphql } from "gatsby"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import Pagenation from "../components/pagination"
 
-const BlogIndex = ({ data, location }) => {
+const BlogIndex = ({ data, location, pageContext }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allMarkdownRemark.nodes
 
@@ -59,6 +60,9 @@ const BlogIndex = ({ data, location }) => {
           )
         })}
       </ol>
+      <footer>
+              <Pagenation pageContext={pageContext} />
+      </footer>
     </Layout>
   )
 }
@@ -66,13 +70,16 @@ const BlogIndex = ({ data, location }) => {
 export default BlogIndex
 
 export const pageQuery = graphql`
-  query {
+  query ($skip: Int!, $limit: Int!) {
     site {
       siteMetadata {
         title
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }
+    skip: $skip
+    limit: $limit
+    ) {
       nodes {
         excerpt
         fields {
