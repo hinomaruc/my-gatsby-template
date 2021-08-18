@@ -1,6 +1,7 @@
 const path = require(`path`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
 const { paginate } = require(`gatsby-awesome-pagination`)
+const _ = require("lodash")
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
@@ -23,6 +24,16 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             }
           }
         }
+        tags: allMarkdownRemark(limit: 1000) {
+          group(field: frontmatter___tags) {
+            fieldValue
+            nodes {
+              fields {
+                slug
+              }
+            }
+          }
+        }
       }
     `
   )
@@ -36,6 +47,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   }
 
   const posts = result.data.allMarkdownRemark.nodes
+  const tags = result.data.tags.group
 
   // Create blog posts pages
   // But only if there's at least one markdown file found at "content/blog" (defined in gatsby-config.js)
@@ -57,14 +69,29 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       })
     })
   }
-      // Create your paginated pages
-      paginate({
-          createPage,
-          items: posts,
-          itemsPerPage: 10,
-          pathPrefix: ({ pageNumber }) => (pageNumber === 0 ? "/" : "/page"),
-          component: path.resolve('src/templates/index.js')
-      })
+
+  //Create tag pages
+  tags.forEach((tag) => {
+    paginate({
+      createPage,
+      items: tag.nodes,
+      itemsPerPage: 10,
+      pathPrefix: `/tags/${_.kebabCase(tag.fieldValue)}`,
+      component: path.resolve('src/templates/tag-list.js'),
+      context: {
+          tag: tag.fieldValue
+      }
+    })
+  })
+  
+  // Create your paginated pages
+  paginate({
+      createPage,
+      items: posts,
+      itemsPerPage: 10,
+      pathPrefix: ({ pageNumber }) => (pageNumber === 0 ? "/" : "/page"),
+      component: path.resolve('src/templates/index.js')
+  })
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
@@ -115,6 +142,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       title: String
       description: String
       date: Date @dateformat
+      tags: [String]
     }
 
     type Fields {

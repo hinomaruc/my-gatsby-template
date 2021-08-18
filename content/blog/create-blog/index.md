@@ -2,7 +2,7 @@
 title: gatsby-starter-blogを元に自分用のブログを作成した手順のまとめ
 date: "2021-08-01T16:30:00"
 description: "ブログ作成のためサンプルプロジェクトを改良した手順のまとめ"
-tags: [GatsbyJS]
+tags: [GatsbyJS,Test]
 ---
 
 デフォルトのままでも十分ブログの作成できますが、

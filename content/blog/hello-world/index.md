@@ -2,6 +2,7 @@
 title: Hello World
 date: "2015-05-01T22:12:03.284Z"
 description: "Hello World"
+tags: [Hello World]
 ---
 
 This is my first post on my new fake blog! How exciting!
@@ -229,12 +230,3 @@ This paragraph has some `code` in it.
 ![Alt Text](https://placehold.it/200x50 "Image Title")
 
     ![Alt Text](https://placehold.it/200x50 "Image Title")
-
-[[info]]
-| ここに情報文を書く
-
-[[warn]]
-| ここに警告文を書く
-
-[[question]]
-| ここに質問文を書く

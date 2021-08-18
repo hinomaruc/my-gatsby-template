@@ -4,6 +4,7 @@ import { Link, graphql } from "gatsby"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import kebabCase from 'lodash/kebabCase'
 
 const BlogPostTemplate = ({ data, location }) => {
   const post = data.markdownRemark
@@ -24,6 +25,17 @@ const BlogPostTemplate = ({ data, location }) => {
         <header>
           <h1 itemProp="headline">{post.frontmatter.title}</h1>
           <p>{post.frontmatter.date}</p>
+
+          <div className="taglist__title">
+          <ul className="taglist__ul">
+          <li className="taglist__li">
+            カテゴリ:
+            {post.frontmatter.tags && post.frontmatter.tags.map((tag) => (
+              <Link to={`/tags/${kebabCase(tag)}`}>#{tag} </Link>
+            ))}
+          </li>
+          </ul>
+          </div>
         </header>
         <section
           dangerouslySetInnerHTML={{ __html: post.html }}
@@ -85,6 +97,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "YYYY/MM/DD")
         description
+        tags
       }
     }
     previous: markdownRemark(id: { eq: $previousPostId }) {

@@ -4,22 +4,20 @@ import { Link, graphql } from "gatsby"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
-import Pagenation from "../components/pagination"
-import kebabCase from 'lodash/kebabCase'
+import TagPagenation from "../components/pagination-tag"
 
 const BlogIndex = ({ data, location, pageContext }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allMarkdownRemark.nodes
+  const { tag } = pageContext
 
   if (posts.length === 0) {
     return (
       <Layout location={location} title={siteTitle}>
-        <Seo title="すべての投稿" />
+        <Seo title={tag} />
         <Bio />
         <p>
-          No blog posts found. Add markdown posts to "content/blog" (or the
-          directory you specified for the "gatsby-source-filesystem" plugin in
-          gatsby-config.js).
+          No tag found.
         </p>
       </Layout>
     )
@@ -27,7 +25,8 @@ const BlogIndex = ({ data, location, pageContext }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
-      <Seo title="All posts" />
+      <Seo title={tag} />
+      <h2>{tag}</h2>
 
       <ol style={{ listStyle: `none` }}>
         {posts.map(post => {
@@ -47,15 +46,6 @@ const BlogIndex = ({ data, location, pageContext }) => {
                     </Link>
                   </h2>
                   <small>{post.frontmatter.date}</small>
-                  <div className="taglist__title">
-                  <ul className="taglist__ul">
-                  <li className="taglist__li">
-                    {post.frontmatter.tags && post.frontmatter.tags.map((tag) => (
-                      <Link to={`/tags/${kebabCase(tag)}`}>#{tag} </Link>
-                    ))}
-                  </li>
-                  </ul>
-                  </div>
                 </header>
                 <section>
                   <p
@@ -70,9 +60,7 @@ const BlogIndex = ({ data, location, pageContext }) => {
           )
         })}
       </ol>
-      <footer>
-              <Pagenation pageContext={pageContext} />
-      </footer>
+      <TagPagenation pageContext={pageContext} />
     </Layout>
   )
 }
@@ -80,13 +68,14 @@ const BlogIndex = ({ data, location, pageContext }) => {
 export default BlogIndex
 
 export const pageQuery = graphql`
-  query ($skip: Int!, $limit: Int!) {
+  query ($skip: Int!, $limit: Int!,$tag: String) {
     site {
       siteMetadata {
         title
       }
     }
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }
+    filter: { frontmatter: { tags: { in: [$tag] } } }
     skip: $skip
     limit: $limit
     ) {
@@ -99,7 +88,6 @@ export const pageQuery = graphql`
           date(formatString: "YYYY/MM/DD")
           title
           description
-          tags
         }
       }
     }

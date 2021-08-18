@@ -381,3 +381,25 @@ a:focus {
 	 color: red;
 	 transition: 0.5s;
 }
+
+/* taglist */
+.taglist__ul {
+ list-style-type: none;
+}
+
+.taglist__li {
+
+}
+
+.taglist__title a {
+ color:#111;
+ font-weight:500;
+ font-size:0.875em;
+ text-decoration: none;
+ transition: all 0.5s ease;
+}
+
+.taglist__title a:hover {
+	 color: red;
+	 transition: 0.5s;
+}
